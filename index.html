@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rajendra Finance</title>
+
+  <meta name="theme-color" content="#0F172A">
+
+  <style>
+    :root{
+      --bg:#0F172A;
+      --card:#1E293B;
+      --soft:#334155;
+      --blue:#2563EB;
+      --text:#F8FAFC;
+      --muted:#94A3B8;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .container{
+      max-width:430px;
+      margin:auto;
+      padding:18px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:18px;
+      padding:16px;
+      margin-top:14px;
+    }
+
+    .balance{
+      font-size:30px;
+      font-weight:bold;
+      margin-top:6px;
+    }
+
+    .small{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .box{
+      background:var(--soft);
+      border-radius:12px;
+      padding:12px;
+    }
+
+    .progress{
+      height:10px;
+      background:#24324A;
+      border-radius:99px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    .fill{
+      height:100%;
+      width:16%;
+      background:#22C55E;
+    }
+
+    .nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:#111827;
+      display:flex;
+      justify-content:space-around;
+      padding:10px;
+    }
+
+    .nav button{
+      background:none;
+      border:none;
+      color:white;
+      font-size:12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>💰 Rajendra Finance</h1>
+  <div class="small">September 2026</div>
+
+  <div class="card">
+    <div class="small">Total Kekayaan</div>
+    <div class="balance" id="wealth">Rp1.640.000</div>
+
+    <div class="small" style="margin-top:8px">
+      Target Rp10.000.000
+    </div>
+
+    <div class="progress">
+      <div class="fill"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="box">
+      <div class="small">SeaBank</div>
+      <b id="sea">Rp900.000</b>
+    </div>
+
+    <div class="box">
+      <div class="small">BSI</div>
+      <b id="bsi">Rp340.000</b>
+    </div>
+
+    <div class="box">
+      <div class="small">Pluang</div>
+      <b id="pluang">Rp300.000</b>
+    </div>
+
+    <div class="box">
+      <div class="small">Emas</div>
+      <b id="gold">Rp100.000</b>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <h3>Pemasukan Bulanan</h3>
+    <p class="small">Tetap Rp1.000.000 + Mingguan Rp100.000</p>
+  </div>
+
+</div>
+
+<div class="nav">
+  <button>Home</button>
+  <button>Transaksi</button>
+  <button>Budget</button>
+  <button>Aset</button>
+</div>
+
+</body>
+  </html>
