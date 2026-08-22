@@ -7,7 +7,16 @@
   <title>Rajendra Finance</title>
 
   <meta name="theme-color" content="#0F172A">
+.btn-row{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
 
+.btn-row button{
+  flex:1;
+  margin-top:0;
+}
   <style>
     :root{
       --bg:#0F172A;
@@ -204,11 +213,13 @@ if("serviceWorker" in navigator){
 
   <input id="nominal" type="number" placeholder="Nominal (contoh 25000)">
 
-  <button onclick="tambahTransaksi()">Simpan Pengeluaran</button>
+<div class="btn-row">
+  <button onclick="tambahTransaksi()">Simpan</button>
 
   <button onclick="tambahSangu()" style="background:#16A34A">
-    + Sangu Mingguan Rp100.000
+    +100rb
   </button>
+</div>
 </div>
 
 <div class="card">
