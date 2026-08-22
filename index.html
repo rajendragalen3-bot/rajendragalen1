@@ -144,10 +144,31 @@
 
   </div>
 
-  <div class="card">
-    <h3>Pemasukan Bulanan</h3>
-    <p class="small">Tetap Rp1.000.000 + Mingguan Rp100.000</p>
-  </div>
+<div class="card">
+  <h3>Tambah Transaksi</h3>
+
+  <select id="kategori">
+    <option>Jajan</option>
+    <option>Transport</option>
+    <option>Kuliah</option>
+    <option>Investasi</option>
+    <option>Tabungan</option>
+    <option>Emas</option>
+  </select>
+
+  <input id="nominal" type="number" placeholder="Nominal (contoh 25000)">
+
+  <button onclick="tambahTransaksi()">Simpan Pengeluaran</button>
+
+  <button onclick="tambahSangu()" style="background:#16A34A">
+    + Sangu Mingguan Rp100.000
+  </button>
+</div>
+
+<div class="card">
+  <h3>Riwayat</h3>
+  <div id="riwayat"></div>
+</div>
 
 </div>
 
@@ -157,6 +178,75 @@
   <button>Budget</button>
   <button>Aset</button>
 </div>
+<script>
+let db = JSON.parse(localStorage.getItem("rajendra")) || {
+  sea:900000,
+  bsi:340000,
+  pluang:300000,
+  emas:100000,
+  riwayat:[]
+};
 
+function rupiah(n){
+  return "Rp"+n.toLocaleString("id-ID");
+}
+
+function simpan(){
+  localStorage.setItem("rajendra", JSON.stringify(db));
+  render();
+}
+
+function total(){
+  return db.sea + db.bsi + db.pluang + db.emas;
+}
+
+function render(){
+
+  sea.innerText = rupiah(db.sea);
+  bsi.innerText = rupiah(db.bsi);
+  pluang.innerText = rupiah(db.pluang);
+  gold.innerText = rupiah(db.emas);
+  wealth.innerText = rupiah(total());
+
+  let html="";
+
+  db.riwayat.slice().reverse().forEach(item=>{
+    html += `
+      <div class="item">
+        <b>${item.kategori}</b><br>
+        <span class="small">-${rupiah(item.nominal)}</span>
+      </div>
+    `;
+  });
+
+  riwayat.innerHTML = html || "<span class='small'>Belum ada transaksi</span>";
+}
+
+function tambahTransaksi(){
+
+  const kat = kategori.value;
+  const nom = Number(nominal.value);
+
+  if(!nom) return;
+
+  db.sea -= nom;
+
+  db.riwayat.push({
+    kategori:kat,
+    nominal:nom
+  });
+
+  nominal.value="";
+
+  simpan();
+}
+
+function tambahSangu(){
+  db.sea += 100000;
+  simpan();
+}
+
+render();
+</script>
 </body>
   </html>
