@@ -92,6 +92,31 @@
     }
 
     .nav button{
+      .hidden{display:none}
+
+.chart{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+  height:140px;
+  margin-top:16px;
+}
+
+.bar{
+  width:32px;
+  background:#2563eb;
+  border-radius:8px 8px 0 0;
+  position:relative;
+}
+
+.bar span{
+  position:absolute;
+  bottom:-22px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  color:#94a3b8;
+  }
       background:none;
       border:none;
       color:white;
@@ -171,12 +196,72 @@
 </div>
 
 </div>
+<div id="aset" class="container hidden">
 
+  <div class="card">
+    <h3>Edit Saldo</h3>
+
+    <div class="small">SeaBank</div>
+    <input id="seaInput" type="number">
+
+    <div class="small">BSI</div>
+    <input id="bsiInput" type="number">
+
+    <div class="small">Pluang</div>
+    <input id="pluangInput" type="number">
+
+    <div class="small">Emas</div>
+    <input id="emasInput" type="number">
+
+    <button onclick="simpanAset()">
+      Simpan Saldo
+    </button>
+  </div>
+
+</div>
+
+<div id="laporan" class="container hidden">
+
+  <div class="card">
+    <h3>Grafik Pengeluaran</h3>
+
+    <div class="chart">
+
+      <div class="bar" id="bjajan" style="height:20px">
+        <span>J</span>
+      </div>
+
+      <div class="bar" id="btransport" style="height:20px">
+        <span>T</span>
+      </div>
+
+      <div class="bar" id="bkuliah" style="height:20px">
+        <span>K</span>
+      </div>
+
+      <div class="bar" id="binvestasi" style="height:20px">
+        <span>I</span>
+      </div>
+
+      <div class="bar" id="btabungan" style="height:20px">
+        <span>Ta</span>
+      </div>
+
+      <div class="bar" id="bemas" style="height:20px">
+        <span>E</span>
+      </div>
+
+    </div>
+
+  </div>
+
+        </div>
 <div class="nav">
-  <button>Home</button>
-  <button>Transaksi</button>
-  <button>Budget</button>
-  <button>Aset</button>
+  <div class="nav">
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('aset')">Aset</button>
+  <button onclick="showPage('laporan')">Laporan</button>
+</div>
 </div>
 <script>
 let db = JSON.parse(localStorage.getItem("rajendra")) || {
@@ -201,7 +286,59 @@ function total(){
 }
 
 function render(){
+function showPage(page){
 
+document.querySelector(".container").style.display="none";
+
+document.getElementById("aset").classList.add("hidden");
+document.getElementById("laporan").classList.add("hidden");
+
+if(page=="home"){
+document.querySelector(".container").style.display="block";
+}else{
+document.getElementById(page).classList.remove("hidden");
+}
+
+}
+
+function simpanAset(){
+
+db.sea=Number(seaInput.value);
+db.bsi=Number(bsiInput.value);
+db.pluang=Number(pluangInput.value);
+db.emas=Number(emasInput.value);
+
+simpan();
+
+alert("Saldo berhasil diperbarui");
+
+  }seaInput.value=db.sea;
+bsiInput.value=db.bsi;
+pluangInput.value=db.pluang;
+emasInput.value=db.emas;
+
+const kategori=["Jajan","Transport","Kuliah","Investasi","Tabungan","Emas"];
+
+kategori.forEach(k=>{
+
+const total=db.riwayat
+.filter(x=>x.kategori==k)
+.reduce((a,b)=>a+b.nominal,0);
+
+const tinggi=Math.max(20,total/5000);
+
+const id={
+Jajan:"bjajan",
+Transport:"btransport",
+Kuliah:"bkuliah",
+Investasi:"binvestasi",
+Tabungan:"btabungan",
+Emas:"bemas"
+}[k];
+
+document.getElementById(id).style.height=tinggi+"px";
+
+});
   sea.innerText = rupiah(db.sea);
   bsi.innerText = rupiah(db.bsi);
   pluang.innerText = rupiah(db.pluang);
